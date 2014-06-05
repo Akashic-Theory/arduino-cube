@@ -38,8 +38,7 @@ void setup(){
   digitalWrite(z3,HIGH);
 }
 
-
-void loop(){
+void cubeWrite(){
   
   if(bitRead(byte(x),0) == 1){digitalWrite(x1,LOW);} else{digitalWrite(x1,HIGH);}
   if(bitRead(byte(x),1) == 1){digitalWrite(x2,LOW);} else{digitalWrite(x2,HIGH);}
@@ -50,7 +49,12 @@ void loop(){
   if(bitRead(byte(z),0) == 1){digitalWrite(z1,LOW);} else{digitalWrite(z1,HIGH);}
   if(bitRead(byte(z),1) == 1){digitalWrite(z2,LOW);} else{digitalWrite(z2,HIGH);}
   if(bitRead(byte(z),2) == 1){digitalWrite(z3,LOW);} else{digitalWrite(z3,HIGH);}
-  
+
+}
+
+void loop(){
+
+  // TEST
   x++;
   if(x > 7){
     x = 0;
@@ -64,5 +68,23 @@ void loop(){
     y = 0;
   }
   
-  delay(500);
+  /*Random
+  x = random(0,7);
+  y = random(0,7);
+  z = random(0,7); 
+ 
+  x = 2;
+  z++;
+  if(z > 7){
+    z = 0;
+    y++;
+  }
+  if(y > 7){
+    y = 0;
+  } */
+  cubeWrite();
+  delay(100);
+
 }
+
+
