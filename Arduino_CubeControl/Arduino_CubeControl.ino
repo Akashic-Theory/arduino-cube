@@ -49,12 +49,56 @@ void cubeWrite(){
   if(bitRead(byte(z),0) == 1){digitalWrite(z1,LOW);} else{digitalWrite(z1,HIGH);}
   if(bitRead(byte(z),1) == 1){digitalWrite(z2,LOW);} else{digitalWrite(z2,HIGH);}
   if(bitRead(byte(z),2) == 1){digitalWrite(z3,LOW);} else{digitalWrite(z3,HIGH);}
+}
 
+void resizedCube(){ 
+  //Expanding/Contracting Box
+  //Size is inverted, 3 being smallest, 0 being largest
+  for(int i = 0; i < 3; i++){
+    int length = 8 - (2 * i);
+    int ledx[((length * length * (length - 1)) * 4) + ((length - 2) * (length - 2) * 2)];
+    int ledy[((length * length * (length - 1)) * 4) + ((length - 2) * (length - 2) * 2)];
+    int ledz[((length * length * (length - 1)) * 4) + ((length - 2) * (length - 2) * 2)];
+    x = (8 - length) / 2;
+    y = (8 - length) / 2;
+    z = (8 - length) / 2;
+    int array = 0;
+    while(1 == 1){
+      if(x == (i) || x == (7 - i) || y == (i) || y == (7 - i) || z == (i) || z == (7 - i)){
+        ledx[array] = x;
+        ledy[array] = y;
+        ledz[array] = z;
+      }
+      x++;
+      if(x > (3 + (length / 2))){
+        x = (8 - length) / 2;
+        z++;
+      }
+      if(z > (3 + (length / 2))){
+        z = (8 - length) / 2;
+        y++;
+      }
+      if(y > (3 + (length / 2))){
+        break;
+      }
+      array++;
+    }
+    int repeat = 0;
+    while(repeat < 10){
+      for(int j = 0; sizeof(ledx); j++){
+        x = ledx[j];
+        y = ledy[j];
+        z = ledz[z];
+        cubeWrite();
+        delayMicroseconds(5000 / sizeof(ledx));
+      }
+    }
+  }
 }
 
 void loop(){
-
-  // TEST
+  //resizedCube();
+  /* TEST
   x++;
   if(x > 7){
     x = 0;
@@ -66,13 +110,14 @@ void loop(){
   }
   if(y > 7){
     y = 0;
-  }
+  }*/
   
-  /*Random
-  x = random(0,7);
-  y = random(0,7);
-  z = random(0,7); 
- 
+  //Random
+  x = random(0,8);
+  y = random(0,8);
+  z = random(0,8);
+  //
+  /*
   x = 2;
   z++;
   if(z > 7){
@@ -83,7 +128,7 @@ void loop(){
     y = 0;
   } */
   cubeWrite();
-  delay(100);
+  delayMicroseconds(5);
 
 }
 
